@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { authentication } from './firebase';
 import { Redirect } from 'react-router-dom';
 import Nav from './navbar';
+import { base } from './airtable';
 
 function Home(){
     const [redirect, setRedirect] = useState(false);
     const [supervisorEmail, setSupervisorEmail] = useState('');
     const [numberOfBehaviours, setNumberOfBehaviours] = useState(1);
+    const [user, setUser] = useState('');
     const [behaviour, setBehaviour] = useState([
         {
             behaviourName: "Default",
@@ -16,14 +18,47 @@ function Home(){
     const mappingArray = [1, 2, 3, 4, 5];
     useEffect(() => {
         authentication.onAuthStateChanged(user => {
-            // console.log(user);
+            console.log(user);
 
             if(user == null)
-            setRedirect(true);
+                setRedirect(true);
+            else 
+                setUser(user);
+
           
-        });
+        })
+    
+            fetch();
+    
         
     }, []);
+
+    const fetch = async () => {
+        base('eBRC').select({
+            // Selecting the first 3 records in Grid view:
+            // maxRecords: 3,
+            view: "Grid view"
+        }).eachPage(function page(records, fetchNextPage) {
+            // This function (`page`) will get called for each page of records.
+        
+            records.forEach(function(record) {
+                if(record.get('Name') == user.email){
+                    setUser(record);
+                console.log(record)
+
+            }
+                    // console.log('Retrieved', record.get('Name'));
+            });
+        
+            // To fetch the next page of records, call `fetchNextPage`.
+            // If there are more records, `page` will get called again.
+            // If there are no more records, `done` will get called.
+            fetchNextPage();
+        
+        }, function done(err) {
+            if (err) { console.error(err); return; }
+        });
+    }
 
     const handleLogout = e => {
         e.preventDefault();
@@ -118,7 +153,7 @@ function Home(){
                         </div>
                         
                    
-            {/* <button onClick={handleLogout} className="btn btn-primary btn-lg ml-5 text-right">Logout</button> */}
+            <button onClick={handleLogout} className="btn btn-primary btn-lg ml-5 text-right">Logout</button>
             </>
             } 
             </div>

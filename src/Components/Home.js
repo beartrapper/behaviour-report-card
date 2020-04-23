@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { authentication } from './firebase';
 import { Redirect } from 'react-router-dom';
+import Nav from './navbar';
 
 function Home(){
     const [redirect, setRedirect] = useState(false);
@@ -49,8 +50,9 @@ function Home(){
     return(
         <div>
             {redirect ? <Redirect to='/login' /> : <> 
-            <div className="container">
-                       <div className="border-radius p-5 mt-3">
+            <Nav />
+            <div className="container custom-margin">
+                       <div className="border-radius p-5 mt-3 ">
                       <div className="row text-center p-3">
                           <h3 className="text-center">Send Data</h3>
                       </div>
@@ -97,7 +99,7 @@ function Home(){
                                     <div className="form-group">
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Behaviour Name" />
                                 </div>
-                                <div className="row mb-4">
+                                <div className="row mb-4 text-center">
                                         <button onClick={handleNumberOfBehaviours} name="binary" className={" m-2 btn " + (numberOfBehaviours == '1' ? " btn-success" : " btn-primary")}>Binary</button>
                                         <button onClick={handleNumberOfBehaviours} name="likert" className={" m-2 btn btn-primary" + (numberOfBehaviours == '2' ? " btn-success" : " btn-primary")}>Likert</button>
                                         <button onClick={handleNumberOfBehaviours} name="count" className={" m-2 btn btn-primary" + (numberOfBehaviours == '3' ? " btn-success" : " btn-primary")}>Count</button>

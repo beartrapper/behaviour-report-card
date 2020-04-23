@@ -2,3 +2,14 @@
     border-radius: 30px 30px 0 0;
     border: 1px solid gray;
 }
+
+.custom-margin {
+    margin-top: 20vh;
+}
+
+.btn.likert-1 { background-color: darkgreen; color: yellow; }
+.btn.likert-2 { background-color: lightgreen; color: brown; }
+.btn.likert-3 { background-color: yellow; color: brown; }
+.btn.likert-4 { background-color: orange; color: white; }
+.btn.likert-5 { background-color: red; color: white; }
+

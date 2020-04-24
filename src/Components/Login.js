@@ -85,7 +85,7 @@ function SignIn () {
           }
           <div class="ps-form__footer">
             <button class="ps-btn ps-btn--fullwidth ps-btn--gradient">{loading ? <>Please wait</> : <> Login </>}</button>
-            <p>Don't have an account?<Link to="/signup" ><Link to="/login"> Sign up now!</Link> </Link></p>
+            <p>Don't have an account?<Link to="/signup" > Sign up now! </Link></p>
           </div>
         </form>
       </div>

@@ -7,6 +7,7 @@ import { base } from './airtable';
 function Home(){
     const [redirect, setRedirect] = useState(false);
     const [supervisorEmail, setSupervisorEmail] = useState('');
+    const [submittingSupervisor, setSubmittingSupervisor] = useState(false);
     const [numberOfBehaviours, setNumberOfBehaviours] = useState(1);
     const [user, setUser] = useState('');
     const [behaviour, setBehaviour] = useState([
@@ -28,36 +29,13 @@ function Home(){
           
         })
     
-            fetch();
     
         
     }, []);
 
-    const fetch = async () => {
-        base('eBRC').select({
-            // Selecting the first 3 records in Grid view:
-            // maxRecords: 3,
-            view: "Grid view"
-        }).eachPage(function page(records, fetchNextPage) {
-            // This function (`page`) will get called for each page of records.
-        
-            records.forEach(function(record) {
-                if(record.get('Name') == user.email){
-                    setUser(record);
-                console.log(record)
 
-            }
-                    // console.log('Retrieved', record.get('Name'));
-            });
+    const handleSubmitSupervisor = e => {
         
-            // To fetch the next page of records, call `fetchNextPage`.
-            // If there are more records, `page` will get called again.
-            // If there are no more records, `done` will get called.
-            fetchNextPage();
-        
-        }, function done(err) {
-            if (err) { console.error(err); return; }
-        });
     }
 
     const handleLogout = e => {

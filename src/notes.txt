@@ -1,0 +1,2 @@
+1. userContext - if(record.get('Name') == user.email && record.get('Supervisor') != null){
+2. userContext - change the user

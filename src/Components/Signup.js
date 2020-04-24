@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, Redirect, Link} from 'react-router-dom';
 import { authentication, firestore } from "./firebase";
+import { base } from './airtable';
 
 
 function SignUpOption () {
@@ -64,18 +65,44 @@ function SignUpOption () {
     authentication
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        // firestore
-        //   .collection("users")
-        //   .doc(res.user.uid)
-        //   .set({
-        //     username,
-        //     fullName
-        //   }).then(() => {
-         
-        //   }).catch(err => console.log(err));
-          setLoading(false);
-          setDone(true);
-          setTimeout(() => setRedirect(true), 3000)
+        console.log(res)
+
+
+        base('Data').create({
+          "Name": "Jgibb2018@my.fit.edu",
+          "Notes": "undefined",
+          "Supervisor": "null",
+          "Type of Data": "Binary",
+          "Binary 1": "0",
+          "Binary 2": "0",
+          "Binary 3": "0",
+          "Date1": "'12/29'"
+        }, {typecast: true}, function(err, record) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log(record.getId());
+        });
+
+        // base('eBRC').create({
+        //   "Name": email,
+        //   "datetime": Date.now(),
+        //   "Supervisor": "",
+
+        // }, function(err, record) {
+        //   if (err) {
+        //     console.error(err);
+        //     return;
+        //   } else {
+        //     // setLoading(false);
+        //     // setDone(true);
+        //     // setTimeout(() => setRedirect(true), 3000)
+        //   }
+        //   // console.log(record.getId());
+        // });
+       
+       
        
       })
       .catch(err => setSignUpError(true));
